@@ -50,7 +50,7 @@ async def setAlert(ctx,arg):
     await ctx.send(f"{ctx.author.mention}, I'm watching {arg}")
     start_time = time.time()
     hours = 20
-    seconds = hours*60
+    seconds = hours*60*60
 
     while True:
         status = get_status(arg)

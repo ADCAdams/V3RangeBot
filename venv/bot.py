@@ -1,4 +1,5 @@
 import discord
+import token
 from discord.ext import commands
 import requests
 from bs4 import BeautifulSoup
@@ -41,6 +42,29 @@ async def v3Status(ctx,arg):
     await ctx.send(f"{ctx.author.mention}")
 bot.add_command(v3Status)
 
+@commands.command()
+async def setAlert(ctx,arg):
+    start_time = time.time()
+    hours = 5
+    seconds = 50
+
+    while True:
+        status = get_status(arg)
+        if status == "Out of range":
+            await ctx.send(f"{status} {ctx.author.mention}")
+
+        time.sleep(30)
+
+        current_time = time.time()
+        elapsed_time = current_time - start_time
+        if elapsed_time > seconds:
+            await ctx.send(f"{ctx.author.mention}, I stopped tracking position: {arg}")
+            print("Finished iterating in: " + str(int(elapsed_time)) + " seconds")
+            break
+bot.add_command(setAlert)
+
+
+
 # @client.event
 # async def on_ready():
 #     print('We have logged in as {0.user}'.format(client))
@@ -70,4 +94,4 @@ bot.add_command(v3Status)
 
 
 
-bot.run('ODQ2NzUzNjQ4NTkxMzcyMzA4.YK0GyQ.m0jNKF6EcVrDL_i_BFQ5_iJNvjg')
+bot.run(token.discToken)

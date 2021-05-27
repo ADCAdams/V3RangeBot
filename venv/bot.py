@@ -1,5 +1,5 @@
 import discord
-import token
+import tokenStorage
 from discord.ext import commands
 import requests
 from bs4 import BeautifulSoup
@@ -7,18 +7,21 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.chrome.options import Options
 from selenium.common.exceptions import TimeoutException
 import time
 
 
 
+options = Options()
+options.add_argument('--headless')
+options.add_argument('--disable-gpu')
 
-#executable_path="C:\chromedriver.exe"
 
 def get_status(position_ID_Input):
     positionID = str(position_ID_Input)
     v3URL = 'https://app.uniswap.org/#/pool/' + positionID
-    driver = webdriver.Chrome(".\Lib\site-packages\selenium\webdriver\chrome/chromedriver.exe")
+    driver = webdriver.Chrome(".\Lib\site-packages\selenium\webdriver\chrome/chromedriver.exe", options=options)
     driver.get(v3URL)
     time.sleep(7)
 
@@ -94,4 +97,4 @@ bot.add_command(setAlert)
 
 
 
-bot.run(token.discToken)
+bot.run(tokenStorage.discToken)

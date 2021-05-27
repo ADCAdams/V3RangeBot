@@ -47,16 +47,17 @@ bot.add_command(v3Status)
 
 @commands.command()
 async def setAlert(ctx,arg):
+    await ctx.send(f"{ctx.author.mention}, I'm watching {arg}")
     start_time = time.time()
-    hours = 5
-    seconds = 50
+    hours = 20
+    seconds = hours*60
 
     while True:
         status = get_status(arg)
         if status == "Out of range":
             await ctx.send(f"{status} {ctx.author.mention}")
 
-        time.sleep(30)
+        time.sleep(180)
 
         current_time = time.time()
         elapsed_time = current_time - start_time
@@ -65,35 +66,6 @@ async def setAlert(ctx,arg):
             print("Finished iterating in: " + str(int(elapsed_time)) + " seconds")
             break
 bot.add_command(setAlert)
-
-
-
-# @client.event
-# async def on_ready():
-#     print('We have logged in as {0.user}'.format(client))
-#
-#
-#     # guilds = client.guilds
-#     # print("*******************guild is: ")
-#     # print(guilds)
-#     #
-#     # v3Channel = await guilds[0].create_text_channel('v3Status')
-#     # await v3Channel.send("new channel1")
-#
-#
-#     # if status == "Out of range":
-#     #     .send(status)
-#     # else:
-#     #     message.channel.send("HunkyDory :)))")
-#
-#
-# @client.event
-# async def on_message(message):
-#     if message.author == client.user:
-#         return
-#
-#     if message.content.startswith('$hello'):
-#         await message.channel.send(status)
 
 
 

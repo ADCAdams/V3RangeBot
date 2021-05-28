@@ -84,7 +84,7 @@ async def setAlert(ctx,arg):
             out = False
 
 
-        time.sleep(180)
+        time.sleep(600)
 
 
 
